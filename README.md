@@ -33,3 +33,9 @@ Put the `tagbak` script in a folder in your PATH, such as `/usr/local/bin/`. Mak
 ## bookmark-cli
 
 If the [bookmark utility](https://github.com/ttscoff/bookmark-cli) is installed in `/usr/local/bin/bookmark`, TagBak will store bookmark information with the metadata. This makes it possible to restore tags on files that have moved or been renamed, but only within the local drive and only if their file data hasn't changed. Restoring from a backup service or an external drive will destroy this data, so it's only a valid precaution in a few cases. Storing this data doesn't cause any major slowdown and the resulting stash sizes are still of a very manageable size, so it doesn't really hurt to include it.
+
+## Guarantee
+
+None. Any data loss or failure to perform is not my responsibility. Run at your own risk.
+
+That being said, the storage process only affects the `.metadata.stash` file and if it's aborted, a backup of that file is restored. The restore process only changes the tag attribute of the affected files, so at worst, you might fail to restore your tags, which in most cases doesn't leave you in any worse position than you were in when you needed to run TagBak.
