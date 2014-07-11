@@ -1,12 +1,14 @@
 # TagBak
 
-A command line utility for saving and restoring OS X tag information
+A command line utility for saving and restoring OS X tag information. TagBak was inspired by [Michael Simons](http://info.michael-simons.eu/2013/10/25/archiving-os-x-mavericks-tags-and-other-data-with-git/).
 
 ---
 
 TagBak can store tags for all files in the current folder and all subfolders. It can then restore the tags to the state they were in at the last run. Files which had existing tags will have any current tags replaced. Files that didn't have tags at the time of the run but have since been tagged will be left with their new tags.
 
 TagBak is intended for use with services that do not currently preserve tag data. If you run a remote backup, for instance, and the service strips tags, you can run TagBak prior to a backup and have the metadata for the backed-up files stored with them. Upon restore, TagBak can read the metadata file and restore the state of the tags as they were at the time of backup.
+
+It can also be used with Git repositories and the like. Run `tagbak store` once, and add the resulting `.metadata.stash` file to the repository. Use hooks (probably post-commit and post-receive) to update it before pushing and restore after pulling from another endpoint.
 
 ## Installation
 
