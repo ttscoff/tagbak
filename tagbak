@@ -407,7 +407,7 @@ else
     target = arg =~ /^\// ? arg : File.join(rel_base, arg)
     if File.directory? File.expand_path(target)
       base_dir = File.expand_path(target)
-      perform_action(type, base_dir)
+      perform_action(type, base_dir, options)
     else
       $stderr.puts "#{ARGV[1]} is not a directory"
       next
