@@ -60,7 +60,9 @@ class TagBak
 
   def store_tags
     datastore = []
-    files = %x{mdfind -onlyin . 'kMDItemUserTags = "*"'}.split("\n")
+    files = %x{mdfind -onlyin . 'kMDItemUserTags = "*"'}
+    files = files.encode('utf-8', 'binary', :invalid => :replace, :undef => :replace)
+    files = files.split("\n")
     files.delete_if {|file| file =~ @ignore_pattern }
 
     trap("SIGINT") { exit_cleanly }
@@ -292,13 +294,16 @@ class TagBak
   end
 
   def get_term_width
-    if ENV['COLUMNS'] =~ /^\d+$/
-      ENV['COLUMNS'].to_i
-    else
-      `tput cols`.to_i
+    begin
+      if ENV['COLUMNS'] =~ /^\d+$/
+        ENV['COLUMNS'].to_i
+      else
+        cols = `tput cols`
+        cols.length > 0 ? cols.to_i : 80
+      end
+    rescue
+      80
     end
-  rescue
-    80
   end
 
   def exit_cleanly
